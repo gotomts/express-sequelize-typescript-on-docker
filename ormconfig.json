@@ -1,0 +1,18 @@
+{
+  "type": "mariadb",
+  "host": "express-typeorm-typescript-on-docker_db_1",
+  "port": 3306,
+  "username": "root",
+  "password": "",
+  "database": "database_dev",
+  "synchronize": false,
+  "logging": false,
+  "entities": ["src/entities/**/*.ts"],
+  "migrations": ["src/db/migrations/**/*.ts"],
+  "subscribers": ["src/db/subscribers/**/*.ts"],
+  "cli": {
+     "entitiesDir": "src/entities",
+     "migrationsDir": "src/db/migrations",
+     "subscribersDir": "src/db/subscribers"
+  }
+}
