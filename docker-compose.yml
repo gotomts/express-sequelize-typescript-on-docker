@@ -12,3 +12,28 @@ services:
       - .:/var/www/express-typescript
     working_dir: /var/www/express-typescript
     command: npm run dev
+
+  db:
+    image: mariadb:10.3
+    ports:
+      - 13306:3306
+    volumes:
+      - ./docker/db-store:/var/lib/mysql
+      - ./docker/db/etc/mysql/conf.d:/etc/mysql/conf.d
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: database_dev
+      MYSQL_USER: root
+      TZ: Asia/Tokyo
+
+  db-testing:
+    image: mariadb:10.3
+    ports:
+      - 13307:3306
+    volumes:
+      - ./docker/db/etc/mysql/conf.d:/etc/mysql/conf.d
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: database_dev
+      MYSQL_USER: root
+      TZ: Asia/Tokyo
