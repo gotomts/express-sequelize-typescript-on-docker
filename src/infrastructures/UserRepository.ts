@@ -19,7 +19,7 @@ class UserRepository {
     }
   };
 
-  public save = async (user: User) => {
+  public save = async (user: any) => {
     try {
       const results = await User.save(user);
       return results;
@@ -28,10 +28,10 @@ class UserRepository {
     }
   };
 
-  public update = async (id: string, user: User) => {
+  public update = async (id: string, reqBody: any) => {
     try {
-      const userResult = await User.findOneOrFail(id);
-      User.merge(userResult, user);
+      const user = await User.findOneOrFail(id);
+      User.merge(user, reqBody);
       const results = await User.save(user);
       return results;
     } catch (err) {
@@ -39,7 +39,7 @@ class UserRepository {
     }
   };
 
-  public delete = async (id: number) => {
+  public delete = async (id: string) => {
     try {
       const results = await User.delete(id);
       return results;
