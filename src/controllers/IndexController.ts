@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import 'reflect-metadata';
 
 class IndexController {
   public fetch = async (req: Request, res: Response) => {

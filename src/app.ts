@@ -8,9 +8,9 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 
 import { createConnection } from 'typeorm';
-import { User } from './entity/User';
 
 import indexRouter from './routes/index';
+import UserRouter from './routes/user';
 
 const app = express();
 createConnection().then(() => {
@@ -34,33 +34,40 @@ createConnection().then(() => {
 
   app.use('/', indexRouter);
 
-  app.get('/user', async (req: Request, res: Response) => {
-    const users = await User.find();
-    res.send(users);
-  });
+  app.use('/users', UserRouter);
 
-  app.get('/users/:id', async (req: Request, res: Response) => {
-    const results = await User.findOne(req.params.id);
-    return res.send(results);
-  });
+  // // fetchAll
+  // app.get('/user', async (req: Request, res: Response) => {
+  //   const users = await User.find();
+  //   res.send(users);
+  // });
 
-  app.post('/users', async (req: Request, res: Response) => {
-    const user = new User('Taro', 'Yamada', 25);
-    const results = await User.save(user);
-    return res.send(results);
-  });
+  // // fetchUser
+  // app.get('/users/:id', async (req: Request, res: Response) => {
+  //   const results = await User.findOne(req.params.id);
+  //   return res.send(results);
+  // });
 
-  app.put('/users/:id', async (req: Request, res: Response) => {
-    const user = await User.findOneOrFail(req.params.id);
-    User.merge(user, req.body);
-    const results = await User.save(user);
-    return res.send(results);
-  });
+  // // save
+  // app.post('/users', async (req: Request, res: Response) => {
+  //   const user = new User('Taro', 'Yamada', 25);
+  //   const results = await User.save(user);
+  //   return res.send(results);
+  // });
 
-  app.delete('/users/:id', async (req: Request, res: Response) => {
-    const results = await User.delete(req.params.id);
-    return res.send(results);
-  });
+  // // update
+  // app.put('/users/:id', async (req: Request, res: Response) => {
+  //   const user = await User.findOneOrFail(req.params.id);
+  //   User.merge(user, req.body);
+  //   const results = await User.save(user);
+  //   return res.send(results);
+  // });
+
+  // // delete
+  // app.delete('/users/:id', async (req: Request, res: Response) => {
+  //   const results = await User.delete(req.params.id);
+  //   return res.send(results);
+  // });
 
   app.use((req: Request, res: Response, next: NextFunction) => {
     next(createHttpError(404));

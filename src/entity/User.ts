@@ -14,9 +14,9 @@ export class User extends BaseEntity {
   lastName: string;
 
   @Column()
-  age: number;
+  age?: number;
 
-  constructor(firstName: string, lastName: string, age: number) {
+  constructor(firstName: string, lastName: string, age?: number) {
     super();
     this.firstName = firstName;
     this.lastName = lastName;
