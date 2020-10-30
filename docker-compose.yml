@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/var/www/express-typescript
     working_dir: /var/www/express-typescript
-    command: npm run dev
+    command: npm run start
 
   db:
     image: mariadb:10.3
