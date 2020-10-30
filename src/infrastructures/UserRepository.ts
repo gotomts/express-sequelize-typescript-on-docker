@@ -1,3 +1,4 @@
+import { getConnection } from 'typeorm';
 import { User } from '../entity/User';
 
 class UserRepository {
@@ -19,10 +20,17 @@ class UserRepository {
     }
   };
 
-  public save = async (user: any) => {
+  public save = async (reqBody: any) => {
     try {
-      const results = await User.save(user);
-      return results;
+      const user = new User(
+        reqBody.firstname,
+        reqBody.lastname,
+        reqBody.age ? parseInt(reqBody.age, 10) : undefined,
+      );
+      await getConnection().transaction(async (transactionalEntityManager) => {
+        const results = await transactionalEntityManager.save(user);
+        return results;
+      });
     } catch (err) {
       throw new Error(err);
     }
@@ -30,10 +38,12 @@ class UserRepository {
 
   public update = async (id: string, reqBody: any) => {
     try {
-      const user = await User.findOneOrFail(id);
-      User.merge(user, reqBody);
-      const results = await User.save(user);
-      return results;
+      await getConnection().transaction(async (transactionalEntityManager) => {
+        const user = await User.findOneOrFail(id);
+        User.merge(user, reqBody);
+        const results = await transactionalEntityManager.save(user);
+        return results;
+      });
     } catch (err) {
       throw new Error(err);
     }
@@ -41,8 +51,10 @@ class UserRepository {
 
   public delete = async (id: string) => {
     try {
-      const results = await User.delete(id);
-      return results;
+      await getConnection().transaction(async (transactionalEntityManager) => {
+        const results = await transactionalEntityManager.delete(User, id);
+        return results;
+      });
     } catch (err) {
       throw new Error(err);
     }

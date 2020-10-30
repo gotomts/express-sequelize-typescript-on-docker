@@ -33,41 +33,7 @@ createConnection().then(() => {
   app.use(express.static(path.join('public')));
 
   app.use('/', indexRouter);
-
   app.use('/users', UserRouter);
-
-  // // fetchAll
-  // app.get('/user', async (req: Request, res: Response) => {
-  //   const users = await User.find();
-  //   res.send(users);
-  // });
-
-  // // fetchUser
-  // app.get('/users/:id', async (req: Request, res: Response) => {
-  //   const results = await User.findOne(req.params.id);
-  //   return res.send(results);
-  // });
-
-  // // save
-  // app.post('/users', async (req: Request, res: Response) => {
-  //   const user = new User('Taro', 'Yamada', 25);
-  //   const results = await User.save(user);
-  //   return res.send(results);
-  // });
-
-  // // update
-  // app.put('/users/:id', async (req: Request, res: Response) => {
-  //   const user = await User.findOneOrFail(req.params.id);
-  //   User.merge(user, req.body);
-  //   const results = await User.save(user);
-  //   return res.send(results);
-  // });
-
-  // // delete
-  // app.delete('/users/:id', async (req: Request, res: Response) => {
-  //   const results = await User.delete(req.params.id);
-  //   return res.send(results);
-  // });
 
   app.use((req: Request, res: Response, next: NextFunction) => {
     next(createHttpError(404));
