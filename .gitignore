@@ -5,4 +5,5 @@ build/
 tmp/
 temp/
 dist/
+coverage/
 docker/db-store

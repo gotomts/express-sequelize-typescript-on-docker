@@ -2,6 +2,13 @@ module.exports = {
   "roots": [
     "<rootDir>/src"
   ],
+  "moduleFileExtensions": [
+    "ts",
+    "js"
+  ],
+  "maxWorkers": 1,
+  "preset": 'ts-jest',
+  "testEnvironment": 'node',
   "testMatch": [
     "**/__tests__/**/*.+(ts|tsx|js)",
     "**/?(*.)+(spec|test).+(ts|tsx|js)"

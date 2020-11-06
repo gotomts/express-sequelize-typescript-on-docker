@@ -1,19 +1,17 @@
 import { Request, Response, Router } from 'express';
+import { createConnection } from 'typeorm';
 import UserRepository from '../infrastructures/UserRepository';
 
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
+  const connection = await createConnection();
   try {
     const userRepository = new UserRepository();
     const results = await userRepository.fetchAll();
-
     if (results) {
       res.status(200);
-      res.json({
-        result: results,
-        message: 'ok',
-      });
+      res.send(results);
     } else {
       res.status(204);
       res.json({
@@ -26,20 +24,19 @@ router.get('/', async (req: Request, res: Response) => {
       message: err.toString(),
     });
   }
+  connection.close();
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
   console.log({ params: req.params });
+  const connection = await createConnection();
   try {
     const userRepository = new UserRepository();
     const results = await userRepository.fetch(req.params.id);
 
     if (results) {
       res.status(200);
-      res.json({
-        result: results,
-        message: 'ok',
-      });
+      res.send(results);
     } else {
       res.status(204);
       res.json({
@@ -52,25 +49,25 @@ router.get('/:id', async (req: Request, res: Response) => {
       message: err.toString(),
     });
   }
+  connection.close();
 });
 
 router.post('/', async (req: Request, res: Response) => {
   console.log({ body: req.body });
+  const connection = await createConnection();
   try {
     const userRepository = new UserRepository();
     const results = await userRepository.save(req.body);
 
     res.status(201);
-    res.json({
-      result: results,
-      message: 'ok',
-    });
+    res.send(results);
   } catch (err) {
     res.status(409);
     res.json({
       message: err.toString(),
     });
   }
+  connection.close();
 });
 
 router.put('/:id', async (req: Request, res: Response) => {
@@ -83,10 +80,7 @@ router.put('/:id', async (req: Request, res: Response) => {
     const results = await userRepository.update(req.params.id, req.body);
 
     res.status(200);
-    res.json({
-      result: results,
-      message: 'ok',
-    });
+    res.send(results);
   } catch (err) {
     res.status(409);
     res.json({
@@ -97,6 +91,7 @@ router.put('/:id', async (req: Request, res: Response) => {
 
 router.delete('/:id', async (req: Request, res: Response) => {
   console.log({ params: req.params });
+  const connection = await createConnection();
   try {
     const userRepository = new UserRepository();
     await userRepository.delete(req.params.id);
@@ -110,6 +105,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
       message: err.toString(),
     });
   }
+  connection.close();
 });
 
 export default router;
