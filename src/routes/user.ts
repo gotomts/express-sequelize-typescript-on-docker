@@ -1,11 +1,13 @@
 import { Request, Response, Router } from 'express';
 import { createConnection } from 'typeorm';
 import UserRepository from '../infrastructures/UserRepository';
+import option from '../common/db-option';
 
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
-  const connection = await createConnection();
+  console.log(process.env.ENV_SETTINGS);
+  const connection = await createConnection(option());
   try {
     const userRepository = new UserRepository();
     const results = await userRepository.fetchAll();
@@ -29,7 +31,7 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.get('/:id', async (req: Request, res: Response) => {
   console.log({ params: req.params });
-  const connection = await createConnection();
+  const connection = await createConnection(option());
   try {
     const userRepository = new UserRepository();
     const results = await userRepository.fetch(req.params.id);
@@ -54,7 +56,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 router.post('/', async (req: Request, res: Response) => {
   console.log({ body: req.body });
-  const connection = await createConnection();
+  const connection = await createConnection(option());
   try {
     const userRepository = new UserRepository();
     const results = await userRepository.save(req.body);
@@ -91,7 +93,7 @@ router.put('/:id', async (req: Request, res: Response) => {
 
 router.delete('/:id', async (req: Request, res: Response) => {
   console.log({ params: req.params });
-  const connection = await createConnection();
+  const connection = await createConnection(option());
   try {
     const userRepository = new UserRepository();
     await userRepository.delete(req.params.id);
