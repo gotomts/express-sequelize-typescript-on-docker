@@ -3,10 +3,10 @@ import { define } from 'typeorm-seeding';
 import { User } from '../entity/User';
 
 define(User, (faker: typeof Faker) => {
-  const firstName = faker.name.firstName();
-  const lastName = faker.name.lastName();
+  const firstname = faker.name.firstName();
+  const lastname = faker.name.lastName();
   const age = faker.random.number();
 
-  const user = new User(firstName, lastName, age);
+  const user = new User(firstname, lastname, age);
   return user;
 });

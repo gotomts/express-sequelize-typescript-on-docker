@@ -8,18 +8,18 @@ export class User extends BaseEntity {
   id?: number;
 
   @Column()
-  firstName: string;
+  firstname: string;
 
   @Column()
-  lastName: string;
+  lastname: string;
 
   @Column()
   age?: number;
 
-  constructor(firstName: string, lastName: string, age?: number) {
+  constructor(firstname: string, lastname: string, age?: number) {
     super();
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.firstname = firstname;
+    this.lastname = lastname;
     this.age = age;
   }
 }
