@@ -9,7 +9,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/var/www/express-typescript
+      - .:/var/www/express-typescript:delegated
     working_dir: /var/www/express-typescript
     command: npm run start
 
@@ -34,6 +34,6 @@ services:
       - ./docker/db/etc/mysql/conf.d:/etc/mysql/conf.d
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: database_dev
+      MYSQL_DATABASE: database_testing
       MYSQL_USER: root
       TZ: Asia/Tokyo

@@ -5,7 +5,7 @@ export class User1603461763295 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      "CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `firstName` varchar(255) NOT NULL, `lastName` varchar(255) NOT NULL, `age` int, PRIMARY KEY (`id`)) ENGINE=InnoDB"
+      "CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `firstname` varchar(255) NOT NULL, `lastname` varchar(255) NOT NULL, `age` int, PRIMARY KEY (`id`)) ENGINE=InnoDB"
     );
   }
 
