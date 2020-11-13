@@ -1,5 +1,4 @@
 import { Request, Response, Router } from 'express';
-import User from '../entity/User';
 import UserRepository from '../infrastructures/UserRepository';
 
 const router = Router();
